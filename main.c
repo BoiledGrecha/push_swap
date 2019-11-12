@@ -12,7 +12,7 @@ void check_string(char *str)
     i = -1;
     while(str[++i])
     {
-        if (str[i] > '0' && str[i] < '9')
+        if (str[i] >= '0' && str[i] <= '9')
             continue;
         if (i == 0 && (str[i] == '-' || str[i] == '+'))
             continue;
@@ -20,16 +20,12 @@ void check_string(char *str)
     }
 }
 
-void append_struct(t_info *structure, char *str)
-{
-
-}
-
 void memory_allocate(t_info *structure, int length)
 {
     structure->stack1 = malloc(sizeof(int) * (length - 1));
     structure->stack2 = malloc(sizeof(int) * (length - 1));
     structure->length = length - 1;
+    // не нужна ли проверка на отработку маллока?
 }
 
 int main(int argc, char **argv)
@@ -44,6 +40,10 @@ int main(int argc, char **argv)
     structure = malloc(sizeof(t_info));
     i = 0;
     memory_allocate(structure, argc);
-    append_struct(structure, argv[i]);
-    go_sort(structure);
+    while(++i < argc)
+        structure->stack1[i - 1] = ft_atoi(argv[i]);
+    //go_sort(structure);
+    i = -1;
+    while (++i < structure->length)
+        printf("%d  ", structure->stack1[i]);
 }
