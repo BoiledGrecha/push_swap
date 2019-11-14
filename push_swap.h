@@ -11,6 +11,10 @@ typedef struct		s_info
 	int length;
 	int *stack1;
 	int *stack2;
+    int stack1_i;
+    int stack2_i;
+    int *sorted;
+    int sorted_i;
 }		t_info;
 
 int				ft_atoi(const char *nptr);
