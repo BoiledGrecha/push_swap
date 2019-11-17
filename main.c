@@ -88,9 +88,14 @@ int is_sorted(int *arr, int length)
 
 void go_sort(t_info *structure)
 {
+    int i;
     check_double(structure);
     sort_sorted(structure);
-     
+    i = -1;
+    while (++i < structure->length)
+    {
+        sort(structure, i)
+    }
 }
 
 
@@ -112,5 +117,6 @@ int main(int argc, char **argv)
     i = -1;
     while (++i < structure->length)
         printf("%d  ", structure->sorted[i]);
-    printf("\n %d  %d \n", is_sorted(structure->stack1, structure->length), is_sorted(structure->sorted, structure->length));
+    printf("\n %d  %d \n", is_sorted(structure->stack1, structure->length),
+                is_sorted(structure->sorted, structure->length));
 }
