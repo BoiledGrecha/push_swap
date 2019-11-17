@@ -86,6 +86,18 @@ int is_sorted(int *arr, int length)
     return (1);
 }
 
+void sort(t_info *structure, int i)
+{
+    int j;
+    j = -1;
+    while(++j < structure->length)
+    {
+        if (structure->stack1[j] == structure->sorted[i])
+            break;
+    }
+    if (j < (structure->length / 2 + structure->length % 2))
+}
+
 void go_sort(t_info *structure)
 {
     int i;
