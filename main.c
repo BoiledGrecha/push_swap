@@ -29,7 +29,7 @@ void memory_allocate(t_info *structure, int length)
     structure->length = length - 1;
     structure->stack1_i = 0;
     structure->stack2_i = length - 1;
-    // не нужна ли проверка на отработку маллока?
+    // нужна проверка на отработку маллока!!!!!
 }
 
 //int check_sort(t_info structure)
@@ -86,6 +86,32 @@ int is_sorted(int *arr, int length)
     return (1);
 }
 
+void append(t_info *structure, char *str, int i)
+{
+    // в structure->ret записываем строку str i раз
+}
+
+void swap_low_to_up(t_info *structure)
+{
+    // делает в массиве а rra (нижний элемент наверх)
+    int j;
+    int temp;
+
+    j = structure->length;
+    temp = structure->stack1[j - 1];
+    while (--j > structure->stack1_i)
+        structure->stack1[j] = structure->stack1[j - 1];
+    structure->stack1[j] = temp;
+}
+
+int swap_low_to_up_times(t_info *structure, int i)
+{
+    // сдвигаем столько раз чтоб элемент i был наверху на месте structure->stack1_i и возвращаем сколько раз был сдвиг
+    while (i != structure->stack1_i[structure->stack1_i])
+        swap_low_to_up(structure);
+    // teeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeest
+}
+
 void sort(t_info *structure, int i)
 {
     int j;
@@ -95,7 +121,10 @@ void sort(t_info *structure, int i)
         if (structure->stack1[j] == structure->sorted[i])
             break;
     }
-    if (j < (structure->length / 2 + structure->length % 2))
+    if (j >= (structure->length / 2 + structure->length % 2))
+    {
+        append(structure, "rra", swap_low_to_up_times(structure, structure->stack1[j]))
+    }
 }
 
 void go_sort(t_info *structure)
