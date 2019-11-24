@@ -37,8 +37,6 @@ void memory_allocate(t_info *structure, int length)
     // нужна проверка на отработку маллока!!!!!
 }
 
-//int check_sort(t_info structure)
-
 void check_double(t_info *structure)
 {
     int i;
@@ -128,7 +126,6 @@ int swap_low_to_up_times(t_info *structure, int i)
         swap_low_to_up(structure);
         j++;
     }
-    structure->stack1_i += 1;
     return j;
 }
 
@@ -143,7 +140,6 @@ int swap_up_to_low_times(t_info *structure, int i)
         swap_up_to_low(structure);
         j++;
     }
-    structure->stack1_i += 1;
     return j;
 }
 
@@ -163,6 +159,17 @@ void append(t_info *structure, char *str, int i)
     
 }
 
+int check_sort(t_info *structure, int i)
+{
+    while(i < structure->length)
+    {
+        if (structure->stack1[i] != structure->sorted[i])
+            return 0;
+        i++;
+    }
+    return 1;
+}
+
 void sort(t_info *structure, int i)
 {
     int j;
@@ -173,15 +180,16 @@ void sort(t_info *structure, int i)
             break;
     }
     if (j >= ((structure->length - structure->stack1_i) / 2 + (structure->length - structure->stack1_i) % 2))
-    {
         append(structure, "rra", swap_low_to_up_times(structure, structure->stack1[j]));
-        //printf("%d\n", swap_low_to_up_times(structure, structure->stack1[j]));
-    }
     else
-    {
         append(structure, "ra", swap_low_to_up_times(structure, structure->stack1[j]));
-        //printf("%d\n", swap_up_to_low_times(structure, structure->stack1[j]));
+    if (check_sort(structure, i) == 0)
+    {
+        append(structure, "pb", 1);
+        structure->stack1_i += 1;
+
     }
+    
 }
 
 void go_sort(t_info *structure)
@@ -192,8 +200,11 @@ void go_sort(t_info *structure)
     i = -1;
     while (++i < structure->length)
     {
+        if (check_sort(structure, i))
+            break;
         sort(structure, i);
     }
+    append(structure, "pa", structure->stack1_i);
 }
 
 
@@ -218,5 +229,5 @@ int main(int argc, char **argv)
     printf("\n");
     i = -1;
     while(++i < structure->ret_i)
-        printf("%c", structure->ret[i]);    
+        printf("%c", structure->ret[i]);
 }
